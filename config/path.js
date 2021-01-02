@@ -25,7 +25,7 @@ module.exports = {
     config:`${base}/${dir.config}/${entry_point}`,
     controllers:`${api}/${dir.controller}/${entry_point}`,
     routes:`${api}/${dir.route}/${entry_point}`,
-    views:`${public}/${dir.view}`,
+    views:`${base}/${dir.view}`,
     middleware:`${api}/${dir.middleware}/${entry_point}`,
     validation:`${api}/${dir.middleware}/${dir.validation}/${entry_point}`,
     helper:`${api}/${dir.helper}/${entry_point}`

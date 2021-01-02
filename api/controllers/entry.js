@@ -1,4 +1,5 @@
 module.exports = {
     time: require('./timeController'),
-    usage: require('./usageController')
-}
+    usage: require('./usageController'),
+    header: require('./headerController')
+};

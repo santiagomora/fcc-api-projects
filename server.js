@@ -27,8 +27,8 @@ app.use('/',router);
 // listen for requests :)
 app.listen(
     process.env.PORT||8000,
-    APP_URL,
+    //APP_URL,
     function(){
-        console.log(`App is listening on ${APP_URL}:${PORT}`)
+        console.log(`App is listening on ${PORT}`)
     }
 );

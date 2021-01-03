@@ -1,3 +1,4 @@
 module.exports = {
-    dateHelper:require('./dateHelper')
+    dateHelper:require('./dateHelper'),
+    objHelper:require('./objHelper')
 };

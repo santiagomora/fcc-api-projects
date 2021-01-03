@@ -1,6 +1,6 @@
 const validate_form = require('./form');
 
-const values = ( data_obj ) => Object.values( data_obj );
+const {values} = require( config('path.entry') ).objHelper;
 
 function has_errors( validation ){
     return validation.reduce(

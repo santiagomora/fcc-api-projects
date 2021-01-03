@@ -18,7 +18,7 @@ function handle_date( req,res ){
     const valid_date =  process_format[ format.toLowerCase() ]( date.split('-') );
     return valid_date
         ? res.status(200).json( utc_date( new Date( valid_date ) ) )
-        : res.status(200).json( invalid_date() );
+        : res.status(422).json( invalid_date() );
 }
 
 function handle_epoch( req,res ){
@@ -29,7 +29,7 @@ function handle_epoch( req,res ){
     const date_res = new Date( eval_date );
     return !isNaN( date_res.getTime() )
         ? res.status(200).json( utc_date( date_res ) )
-        : res.status(200).json( invalid_date() );
+        : res.status(422).json( invalid_date() );
 }
 
 function handle_empty( req,res ){

@@ -1,6 +1,8 @@
 
 const {isNaN,isInteger} = Number;
 
+const dns = require( 'dns' );
+
 function check_formats( valid_formats,data ){
     return valid_formats.reduce(
         ( is_valid,current_format ) => (
@@ -13,12 +15,12 @@ function check_formats( valid_formats,data ){
 }
 
 module.exports = {
-    required:(data,rule_value) => {
+    required: async (data,rule_value) => {
         return rule_value
             ? (data===null && typeof data === undefined) || (data||'').length<=0
             : false;
     },
-    date:(data,rule_value) => {
+    date: async (data,rule_value) => {
         const valid_formats = [
             '\\d{1,2}-\\d{1,2}-\\d{1,4}',
             '\\d{1,4}-\\d{1,2}-\\d{1,2}'
@@ -27,17 +29,17 @@ module.exports = {
             ? check_formats( valid_formats,data )
             : false;
     },
-    valid_formats:(data,rule_value) => {
+    valid_formats: async (data,rule_value) => {
         return (rule_value.length>0)
             ? check_formats( rule_value,data )
             : false;
     },
-    numeric:(data,rule_value) => {
+    numeric: async (data,rule_value) => {
         return rule_value
             ? isNaN( Number( data ) )
             : false;
     },
-    integer:(data,rule_value) => {
+    integer: async (data,rule_value) => {
         const data_val = Number( data ),
             eval = isNaN( data_val )
                 ? 1.1
@@ -46,7 +48,16 @@ module.exports = {
             ? !isInteger( eval )
             : false;
     },
-    positive:(data,rule_value) => {
+    positive: async (data,rule_value) => {
+        const data_val = Number( data ),
+            eval = isNaN( data_val )
+            ? -1
+            : data_val;
+        return rule_value
+            ? eval<0
+            : false;
+    },
+    valid_url: async (data,rule_value) => {
         const data_val = Number( data ),
             eval = isNaN( data_val )
             ? -1

@@ -16,5 +16,8 @@ module.exports = {
     ),
     positive:(field_name,field_value,rule_value) => (
         `the field: ${field_name} must be positive. got: ${field_value}`
-    )
+    ),
+    valid_url:(field_name,field_value,rule_value) => (
+        `the field: ${field_name} must be a valid url. got: ${field_value}`
+    ),
 }

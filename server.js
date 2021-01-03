@@ -1,14 +1,10 @@
-// server.js
-// where your node app starts
 require('dotenv').config();
 
 global.config = require('./config/entry');
 
 const express = require('express');
 
-// enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
-// so that your API is remotely testable by FCC
-const cors = require('cors');
+const mongoose = require('mongoose');
 
 const router = require( config( 'path.routes' ) );
 
@@ -20,7 +16,15 @@ const PORT = config('app.port');
 
 const FALLBACK_PORT = config('app.fallback_port');
 
-app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
+const DB_URI = config( 'mongo.db_uri' );
+
+const CONNECTION_CONF = config( 'mongo.mongoose.connection' );
+
+try{
+    mongoose.connect( DB_URI,CONNECTION_CONF );
+} catch( e ){
+    console.error(e);
+}
 
 app.use('/',router);
 

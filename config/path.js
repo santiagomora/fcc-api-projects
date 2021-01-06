@@ -15,7 +15,7 @@ const dir = {
     controller:'controllers',
     route:'routes',
     middleware:'middleware',
-    validation:'validation/methods',
+    validation:'validation',
     helper:'helper',
     models:'models',
     model_middleware:'models/middleware'

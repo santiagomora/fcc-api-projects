@@ -1,20 +1,26 @@
 const {Increments,Url} = require( config( 'path.models' ) );
 
-function handle_create_url( req,res ){
-    console.log(req.body);
-    return res.status(422).json({msg:"Unprocessable entity"});
+const {format_response_url} = Url.format;
+
+const {find_one_url,create_url} = Url.methods;
+
+async function handle_create_url( req,res ){
+    const {found_url,url} = req.body;
+    const new_url = found_url
+        ? found_url
+        : await create_url({url_name:url});
+    return res.status(200).json( format_response_url( new_url ) );
 }
 
-function handle_redirect_url( req,res ){
-    Increments.find({}).exec(
-        function( err,res ){
-            console.log(err,res)
-        }
-    );
-    return res.status(200).json({hello:"hola"});
+async function handle_find_url( req,res ){
+    const {found_url,url_id} = req.params;
+    const ret_url = found_url
+        ? found_url
+        : await find_one_url({url_id});
+    return res.status(200).json( format_response_url( ret_url ) );
 }
 
 module.exports = {
     handle_create_url,
-    handle_redirect_url
+    handle_find_url
 };

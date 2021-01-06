@@ -1,4 +1,4 @@
-const urlValidation = require('./dateValidation');
+const urlValidation = require('./urlValidation');
 
 const identifierValidation = require('./identifierValidation');
 
@@ -11,15 +11,29 @@ module.exports = {
     handlers:[],
     children:[
         {
-            uri:`${base_uri}/shorturl/:short_url$`,
+            uri:`${base_uri}/shorturl/:url_id$`,
+            method:'get',
             handlers:[
-                validate( identifierValidation )
+                validate({
+                    validation:identifierValidation,
+                    method:'get',
+                    excluded:[
+                        /new$/gi
+                    ]
+                })
             ],
             children:[]
         },{
             uri:`${base_uri}/shorturl/new$`,
+            method:'post',
             handlers:[
-                validate( urlValidation )
+                validate({
+                    validation:urlValidation,
+                    method:'post',
+                    excluded:[
+                        /\d+$/gi
+                    ]
+                })
             ],
             children:[]
         }

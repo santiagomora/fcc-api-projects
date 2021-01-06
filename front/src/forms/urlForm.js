@@ -22,6 +22,7 @@ function loadUrl( urlData,changeStatus ){
         }
     ).catch(
         (err) => {
+            console.log(err);
             const {status,data} = err.response;
             changeStatus({
                 waiting:true,
@@ -41,7 +42,6 @@ function UrlForm(){
         },
         resolveCallback = ( urlData,changeStatus ) => {
             return function( err,addr,fam ){
-                console.log(err,addr,fam);
                 return err
                     ? changeStatus({
                         waiting:true,
@@ -53,9 +53,8 @@ function UrlForm(){
         },
         sendUrl = (e) => {
             e.preventDefault();
-            dns.lookup( url,resolveCallback( url,changeStatus ) )
+            loadUrl( {url},changeStatus );
         };
-    console.log(dns);
     return (
         <div className="col-md-8" style={{textAlign:"center"}}>
             <form method="POST"

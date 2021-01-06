@@ -1,44 +1,90 @@
 const mongoose = require('mongoose');
 
-const {pre_increment} = require( config( 'path.model_middleware' ) ).save;
-
 const {Increments} = require( config( 'path.models' ) );
 
-const inc_doc = config( 'mongo.mongoose.inc_doc.url_inc_doc' );
+const {
+    auto_increment,
+    auto_increment_config,
+    connection
+} = config( 'mongoose' );
 
 const collection_name = 'short_urls';
 
 const {Schema} = mongoose;
 
-const url_schema = new Schema({
-        name:{
+const url_schema = new Schema(
+    {
+        url_name:{
             type:String,
             required:true,
             lowercase:true,
             index:{
                 unique:true
             }
-        },
-        id:{
-            type:Number,
-            required:true,
-            index:{
-                unique:true
-            },
-            min:0
-        },
-        inc_doc:{
-            type:String,
-            default: inc_doc
         }
     },{
         timestamps:{
-            createdAt:'created_at',
-            updatedAt:'updated_at'
+            createdAt:'url_created_at',
+            updatedAt:'url_updated_at'
         }
-    });
+    }
+);
 
-//custom auto_increment implementation
-url_schema.pre( 'save', pre_increment( inc_doc ) )
+url_schema.plugin( auto_increment.plugin,{
+    ...auto_increment_config,
+    model:'Url',
+    field:'url_id'
+});
 
-module.exports = mongoose.model( 'Url',url_schema,'short_urls' );
+const Url = connection.model( 'Url',url_schema,'short_urls' );
+
+function create_url({
+    url_name
+}){
+    return new Promise(
+        (resolve,reject) => {
+            Url.create( {url_name}, function ( err,doc ){
+                if ( err )
+                    throw err;
+                resolve(doc);
+            });
+        }
+    ).catch( e => console.error(e) );
+}
+
+function find_one_url(find){
+    return new Promise(
+        (resolve,reject) => {
+            Url.findOne( find, function ( err,doc ){
+                if ( err )
+                    throw err;
+                resolve(doc);
+            });
+        }
+    ).catch( e => console.error(e) );
+}
+
+function format_response_url({
+    url_name,
+    url_id
+}){
+    return ({
+        original_url:url_name,
+        short_url:url_id
+    })
+}
+
+const methods = {
+    find_one_url,
+    create_url
+}
+
+const format = {
+    format_response_url
+}
+
+module.exports = {
+    model:Url,
+    methods,
+    format
+}

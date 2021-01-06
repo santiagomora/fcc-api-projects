@@ -2,7 +2,7 @@ const configTypes = {
     path:require('./path'),
     app:require('./app'),
     api:require('./api'),
-    mongo:require('./mongo'),
+    mongoose:require('./mongoose'),
     cors:require('./cors')
 };
 

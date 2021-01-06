@@ -4,16 +4,16 @@ const {url} = require( config( 'path.controllers' ) );
 
 const router = express.Router();
 
-const {handle_create_url,handle_redirect_url} = url;
+const {handle_create_url,handle_find_url} = url;
 
 router.post(
-    "/new",
+    "/new$",
     handle_create_url
 );
 
 router.get(
-    "/:short_url",
-    handle_redirect_url
+    "/:url_id$",
+    handle_find_url
 );
 
 module.exports = router;

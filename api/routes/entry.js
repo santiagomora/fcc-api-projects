@@ -10,23 +10,26 @@ const header_routes = require('./header');
 
 const url_routes = require('./url');
 
-const router = require( config('path.middleware') );
+const router = express.Router();
+
+const mount_middleware = require( config('path.middleware') );
 
 const base_uri = config('api.base_uri');
 
 const CORS_OPTIONS = config( 'cors.options' );
 
-router.use( cors( CORS_OPTIONS ) );  // some legacy browsers choke on 204
-
 router.use( body_parser.json() );
 
-// route methods
+router.use( cors( CORS_OPTIONS ) );  //some legacy browsers choke on 204
+
+router.use('/', express.static('public'));
+
+mount_middleware( router );
+
 router.use(`${base_uri}/timestamp`,time_routes);
 
-// route methods
 router.use(`${base_uri}/whoami`,header_routes);
 
-// route methods
 router.use(`${base_uri}/shorturl`,url_routes);
 
 module.exports = router;

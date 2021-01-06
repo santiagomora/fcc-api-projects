@@ -1,11 +1,9 @@
 const express = require('express');
 
-const router = express.Router();
-
-const validation_middleware = require('./validation/entry' );
-
-//default middleware
-router.use('/', express.static('public'));
+const validation_middleware = [
+    require('./validation/date/entry'),
+    require('./validation/url/entry')
+];
 
 //assign middlewares on current uri
 function assign_middleware( handlers,router,uri ){
@@ -35,4 +33,8 @@ function middleware_map( mid_children,router ){
     )
 }
 
-module.exports = middleware_map( validation_middleware,router );
+function mount_middleware( router ){
+    return middleware_map( validation_middleware,router );
+}
+
+module.exports = mount_middleware;

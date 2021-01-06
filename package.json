@@ -23,6 +23,7 @@
 		"jquery": "^3.5.1",
 		"mongodb": "^3.6.3",
 		"mongoose": "^5.11.9",
+		"mongoose-auto-increment": "^5.0.1",
 		"popper": "^1.0.1",
 		"react": "^17.0.1",
 		"react-app-rewired": "^2.1.8",

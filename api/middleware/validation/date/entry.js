@@ -11,15 +11,28 @@ module.exports = {
     handlers:[],
     children:[{
         uri:`${base_uri}/timestamp/:date$`,
+        method:'get',
+        excluded:[],
         handlers:[
-            validate(epochValidation)
+            validate({
+                validation:epochValidation,
+                method:'get',
+                excluded:[]
+            })
         ],
-        children:[{
-            uri:`${base_uri}/timestamp/:date/:format$`,
-            handlers:[
-                validate(dateValidation)
-            ],
-            children:[]
-        }]
+        children:[
+            {
+                uri:`${base_uri}/timestamp/:date/:format$`,
+                method:'get',
+                handlers:[
+                    validate({
+                        validation:dateValidation,
+                        method:'get',
+                        excluded:[]
+                    })
+                ],
+                children:[]
+            }
+        ]
     }]
 };

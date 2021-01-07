@@ -22,7 +22,7 @@ router.use( body_parser.json() );
 
 router.use( cors( CORS_OPTIONS ) );  //some legacy browsers choke on 204
 
-router.use('/', express.static('public'));
+router.use( '/',express.static( `${config('path.build')}` ) );
 
 mount_middleware( router );
 

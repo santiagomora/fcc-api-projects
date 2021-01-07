@@ -14,8 +14,8 @@ const FALLBACK_PORT = config('app.fallback_port');
 
 const mongoose_connection = config( 'mongoose.connection' );
 
-app.use('/api',router);
-//
+app.use('/',router);
+
 app.listen(
     process.env.PORT||8000,
     //APP_URL,

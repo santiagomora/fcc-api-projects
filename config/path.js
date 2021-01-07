@@ -6,9 +6,7 @@ const base = path.resolve(__dirname,'..');
 const entry_point = 'entry';
 
 // base directory
-const api = `${base}`;
-
-const public = `${base}/public`;
+const api = `${base}/api`;
 
 // directory names
 const dir = {
@@ -19,11 +17,14 @@ const dir = {
     validation:'validation',
     helper:'helper',
     models:'models',
-    model_middleware:'models/middleware'
+    model_middleware:'models/middleware',
+    public:'public',
+    build:'build'
 }
 
 // exports
 module.exports = {
+    public:`${base}/${dir.public}`,
     config:`${base}/${dir.config}/${entry_point}`,
     controllers:`${api}/${dir.controller}/${entry_point}`,
     routes:`${api}/${dir.route}/${entry_point}`,
@@ -31,5 +32,6 @@ module.exports = {
     validation:`${api}/${dir.middleware}/${dir.validation}/${entry_point}`,
     helper:`${api}/${dir.helper}/${entry_point}`,
     models:`${api}/${dir.models}/${entry_point}`,
-    model_middleware:`${api}/${dir.model_middleware}/${entry_point}`
+    model_middleware:`${api}/${dir.model_middleware}/${entry_point}`,
+    build:`${base}/${dir.build}`
 };

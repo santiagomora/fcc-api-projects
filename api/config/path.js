@@ -6,7 +6,8 @@ const base = path.resolve(__dirname,'..');
 const entry_point = 'entry';
 
 // base directory
-const api = `${base}/api`;
+const api = `${base}`;
+
 const public = `${base}/public`;
 
 // directory names

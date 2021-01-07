@@ -18,13 +18,11 @@ const auto_increment_config = {
 };
 
 const mongoose_config = {
-    db_uri: DB_URL
-        ? DB_URL
-        : DB_URI.replace( '<user>',DB_USER ) //user
-            .replace( '<password>',DB_PASSWORD ) //password
-            .replace( '<host>',DB_HOST ) //host
-            .replace( '<dbname>',DB_NAME ) //db name
-            .replace( '<port>',DB_PORT ), //port
+    db_uri: DB_URI.replace( '<user>',DB_USER ) //user
+        .replace( '<password>',DB_PASSWORD ) //password
+        .replace( '<host>',DB_HOST ) //host
+        .replace( '<dbname>',DB_NAME ) //db name
+        .replace( '<port>',DB_PORT ), //port
     options:{
         useNewUrlParser: true,
         useUnifiedTopology: true,

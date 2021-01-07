@@ -22,7 +22,7 @@ const mongoose_config = {
         .replace( '<password>',DB_PASSWORD ) //password
         .replace( '<host>',DB_HOST ) //host
         .replace( '<dbname>',DB_NAME ) //db name
-        .replace( '<port>',DB_PORT ), //port
+        .replace( ':<port>',DB_PORT ), //port
     options:{
         useNewUrlParser: true,
         useUnifiedTopology: true,

@@ -16,7 +16,7 @@ async function create_valid_url({req}){
     const new_url = found_url
         ? found_url
         : await create_url({url_name:valid_url});
-    new_url.url_name = req.body.url;
+    new_url.url_name = req.body.url_input;
     return format_response_url( new_url );
 }
 
@@ -28,7 +28,7 @@ async function handle_create_url( req,res ){
             status:200
         } : {
             data:{
-                error:"invalid url"
+                error:"invalid URL"
             },
             status:422
         }

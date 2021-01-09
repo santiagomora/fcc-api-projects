@@ -15,7 +15,7 @@ module.exports = {
         ? {
             optionsSuccessStatus: 200,
             credentials:true,
-            origin: '*'
+            origin: allowed_origin
         } : {
             optionsSuccessStatus: 200,
             origin: '*'

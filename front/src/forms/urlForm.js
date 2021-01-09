@@ -55,7 +55,7 @@ function loadUrl( urlData,changeStatus ){
 }
 
 function UrlForm(){
-    const [url,changeUrl] = useState(defaulUrl),
+    const [url_input,changeUrl] = useState(defaulUrl),
         [status,changeStatus] = useState(appStatus),
         changeText = (e) => {
             e.preventDefault();
@@ -63,7 +63,7 @@ function UrlForm(){
         },
         sendUrl = (e) => {
             e.preventDefault();
-            loadUrl( {url},changeStatus );
+            loadUrl( {url_input},changeStatus );
         };
     return (
         <div className="col-md-8" style={{textAlign:"center"}}>
@@ -82,7 +82,7 @@ function UrlForm(){
                 <input style={{margin:"0px 10px 10px 0px"}}
                     onChange={changeText}
                     type="text"
-                    value={url}/>
+                    value={url_input}/>
                 <input onClick={sendUrl}
                     type="submit"
                     value="Send URL"/>

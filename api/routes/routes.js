@@ -18,9 +18,11 @@ const base_uri = config('api.base_uri');
 
 const CORS_OPTIONS = config( 'cors.options' );
 
+const is_production = process.NODE_ENV === 'production';
+
 router.use( body_parser.urlencoded( { extended:false } ) )//body_parser.json() );
 
-router.use( cors() )//cors( CORS_OPTIONS ) );  //some legacy browsers choke on 204
+router.use( is_production ? cors() : cors( CORS_OPTIONS ) );
 
 router.use( '/',express.static( `${config('path.build')}` ) );
 

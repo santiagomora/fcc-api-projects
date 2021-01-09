@@ -8,6 +8,12 @@ import {displayMessage,formatMessage,formatError} from './messages';
 
 const postUrl = '/shorturl/new';
 
+function encodeFormData({url_input}){
+    const params = new URLSearchParams();
+    params.append( 'url_input', url_input );
+    return params;
+}
+
 const appStatus = {
     message:{
         formatted:(
@@ -22,7 +28,7 @@ const defaulUrl = 'https://www.freecodecamp.org';
 function loadUrl( urlData,changeStatus ){
     POST({
         url:postUrl,
-        data:urlData
+        data:encodeFormData( urlData )
     }).then(
         (res) => {
             const {original_url,short_url} = res.data;

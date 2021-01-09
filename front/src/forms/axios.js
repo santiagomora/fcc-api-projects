@@ -22,7 +22,8 @@ export const GET = (
         crossDomain: !isProduction,
         withCredentials: !isProduction,
         headers:{
-            'Content-type':'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            //'Content-type':'application/json',
             'Accept':'application/json'
         },
         ...options
@@ -39,7 +40,8 @@ export const POST = (
         crossDomain:true,
         withCredentials:true,
         headers:{
-            'Content-type':'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            //s'Content-type':'application/json',
             'Accept':'application/json'
         },
         ...options

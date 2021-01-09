@@ -18,7 +18,7 @@ const base_uri = config('api.base_uri');
 
 const CORS_OPTIONS = config( 'cors.options' );
 
-router.use( body_parser.json() );
+router.use( body_parser.urlencoded( { extended:false } ) )//body_parser.json() );
 
 router.use( cors() )//cors( CORS_OPTIONS ) );  //some legacy browsers choke on 204
 

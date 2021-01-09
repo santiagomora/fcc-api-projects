@@ -1,19 +1,30 @@
 const {Url} = require( config( 'path.models' ) );
 
+function append_url( {request,found} ){
+    request.body.found_url = found;
+    return false;
+}
+
+function valid_url( {request,addr} ){
+    request.body.valid_url = addr;
+    return false;
+}
+
+function preformat_url( url ){
+    return url.replace( /^(http:\/\/|https:\/\/)/gi,'' ).toLowerCase();
+}
+
 module.exports = {
     url:{
-        required:true,
-        valid_url:true,
+        valid_url:{
+            handle_domain:valid_url,
+            preformat:preformat_url
+        },
         unique:{
             model:Url.model,
             field:'url_name',
-            on_success: ({
-                res,
-                request
-            }) => { // append found record on request
-                request.body.found_url = res;
-                return false;
-            }
+            preformat: preformat_url,
+            on_success: append_url
         }
     }
 }

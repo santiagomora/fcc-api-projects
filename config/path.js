@@ -2,36 +2,56 @@ const path = require('path');
 
 const base = path.resolve(__dirname,'..');
 
-//  entry point when requiring related modules
-const entry_point = 'entry';
-
 // base directory
 const api = `${base}/api`;
 
 // directory names
-const dir = {
-    config:'config',
-    controller:'controllers',
-    route:'routes',
-    middleware:'middleware',
-    validation:'validation',
-    helper:'helper',
-    models:'models',
-    model_middleware:'models/middleware',
-    public:'public',
-    build:'build'
+const dir_config = {
+    config:{
+        dirname:'config',
+        entry:'config'
+    },
+    controllers:{
+        dirname:'controllers',
+        entry:'controllers'
+    },
+    routes:{
+        dirname:'routes',
+        entry:'routes'
+    },
+    middleware:{
+        dirname:'middleware',
+        entry:'middleware'
+    },
+    validation:{
+        dirname:'validation',
+        entry:'validation'
+    },
+    helper:{
+        dirname:'helper',
+        entry:'helper'
+    },
+    models:{
+        dirname:'models',
+        entry:'models'
+    },
+    public:{
+        dirname:'public',
+    },
+    build:{
+        dirname:'build',
+    }
 }
 
 // exports
 module.exports = {
-    public:`${base}/${dir.public}`,
-    config:`${base}/${dir.config}/${entry_point}`,
-    controllers:`${api}/${dir.controller}/${entry_point}`,
-    routes:`${api}/${dir.route}/${entry_point}`,
-    middleware:`${api}/${dir.middleware}/${entry_point}`,
-    validation:`${api}/${dir.middleware}/${dir.validation}/${entry_point}`,
-    helper:`${api}/${dir.helper}/${entry_point}`,
-    models:`${api}/${dir.models}/${entry_point}`,
-    model_middleware:`${api}/${dir.model_middleware}/${entry_point}`,
-    build:`${base}/${dir.build}`
+    public:`${base}/${dir_config.public.dirname}`,
+    config:`${base}/${dir_config.config.dirname}/${dir_config.config.entry}`,
+    controllers:`${api}/${dir_config.controllers.dirname}/${dir_config.controllers.entry}`,
+    routes:`${api}/${dir_config.routes.dirname}/${dir_config.routes.entry}`,
+    middleware:`${api}/${dir_config.middleware.dirname}/${dir_config.middleware.entry}`,
+    validation:`${api}/${dir_config.middleware.dirname}/${dir_config.validation.dirname}/${dir_config.validation.entry}`,
+    helper:`${api}/${dir_config.helper.dirname}/${dir_config.helper.entry}`,
+    models:`${api}/${dir_config.models.dirname}/${dir_config.models.entry}`,
+    build:`${base}/${dir_config.build.dirname}`
 };

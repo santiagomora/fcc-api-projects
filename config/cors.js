@@ -1,19 +1,22 @@
-
-var whitelist = [
-    'http://127.0.0.1:3001'
+const whitelist = [
+    'http://127.0.0.1:3001',
+    'http://localhost:3001'
 ];
 
 function allowed_origin( origin,callback ){
-    if( whitelist.indexOf( origin ) !== -1 )
-        callback( null,true );
-    else
-        callback( new Error('Not allowed by CORS') );
+    const args = ( whitelist.indexOf( origin ) !== -1 )
+        ? [null,true]
+        : [ new Error('Not allowed by CORS') ];
+    callback( ...args );
 }
 
 module.exports = {
-    options:{
-        optionsSuccessStatus: 200,
-        //credentials: true,
-        origin: '*' //allowed_origin
-    }
+    options: process.env.NODE_ENV==='development'
+        ? {
+            optionsSuccessStatus: 200,
+            credentials:true,
+            origin: allowed_origin
+        } : {
+            optionsSuccessStatus: 200
+        }
 }

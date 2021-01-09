@@ -2,14 +2,19 @@ import dns from 'dns';
 
 import {useState} from 'react';
 
-import {POST} from './axios';
+import {POST,API_BASE} from './axios';
+
+import {displayMessage,formatMessage,formatError} from './messages';
 
 const postUrl = '/shorturl/new';
 
 const appStatus = {
-    waiting:true,
-    success:false,
-    error:"empty address"
+    message:{
+        formatted:(
+            <code>No URL sent</code>
+        )
+    },
+    error:null
 };
 
 function loadUrl( urlData,changeStatus ){
@@ -18,16 +23,30 @@ function loadUrl( urlData,changeStatus ){
         data:urlData
     }).then(
         (res) => {
-            console.log(res)
+            const {original_url,short_url} = res.data;
+            const access_url = `${API_BASE}/shorturl/${short_url}`;
+            changeStatus({
+                error:null,
+                message:{
+                    original: res.data,
+                    formatted: formatMessage({original_url,access_url})
+                }
+            });
         }
     ).catch(
         (err) => {
-            console.log(err);
             const {status,data} = err.response;
+            const error_data = {
+                status:status,
+                message:data.error ? data.error : data
+            };
+
             changeStatus({
-                waiting:true,
-                success:false,
-                error:`status:${status}. message:${data.msg}`
+                message:null,
+                error:{
+                    original: error_data,
+                    formatted: formatError(error_data)
+                }
             })
         }
     );
@@ -39,17 +58,6 @@ function UrlForm(){
         changeText = (e) => {
             e.preventDefault();
             changeUrl( e.currentTarget.value )
-        },
-        resolveCallback = ( urlData,changeStatus ) => {
-            return function( err,addr,fam ){
-                return err
-                    ? changeStatus({
-                        waiting:true,
-                        success:false,
-                        error:"invalid address"
-                    })
-                    : loadUrl( {url:urlData},changeStatus );
-            }
         },
         sendUrl = (e) => {
             e.preventDefault();
@@ -77,7 +85,7 @@ function UrlForm(){
                     type="submit"
                     value="Send URL"/>
                 <div>
-                    <code>{status.error}</code>
+                    {displayMessage(status)}
                 </div>
             </form>
         </div>

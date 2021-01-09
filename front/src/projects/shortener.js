@@ -28,7 +28,7 @@ const shortenerProject = {
                     <code><strong>[POST] - /api/shorturl/new:</strong></code>
                     <hr/>
                     <p>Creates new shortened URL if not exists. If it does, returns json with corresponding information</p>
-                    <hr/>
+                    
                 </div>
             </div>
         </>

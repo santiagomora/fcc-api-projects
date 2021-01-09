@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-global.config = require('./config/entry');
+global.config = require('./config/config');
 
 const express = require('express');
 

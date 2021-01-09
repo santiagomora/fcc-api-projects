@@ -40,8 +40,11 @@ async function validate({
 }
 
 function check_valid_url( {excluded,originalUrl} ){
-    return excluded.filter(
-        url_reg => url_reg.test( originalUrl )
+    return excluded.reduce(
+        ( invalid_match,url_reg ) => ( originalUrl.match( url_reg ) || [] ).length>0
+            ? [ ...invalid_match,url_reg ]
+            : invalid_match,
+        []
     );
 }
 
@@ -56,15 +59,15 @@ function validation_middleware({
                 excluded,
                 originalUrl
             });
-        return ( invalid_url.length<=0 )
-            ? await validate({
+        return ( invalid_url.length>0 )
+            ? next()
+            : await validate({
                 request,
                 response,
                 next,
                 validation,
                 method
-            })
-            : next();
+            });
     }
 }
 

@@ -1,8 +1,16 @@
 import axios from 'axios';
 
-export const BASE_URL = 'http://127.0.0.1:3000';
+const {protocol,host} = (typeof window !== 'undefined')
+    ? window.location
+    : {protocol:null,host:null};
 
-const API_BASE = `${BASE_URL}/api`;
+const isProduction = process.env.NODE_ENV === 'production';
+
+export const BASE_URL = (protocol && host && isProduction )
+    ? `${protocol}//${host}`
+    : 'http://127.0.0.1:3000';
+
+export const API_BASE = `${BASE_URL}/api`;
 
 export const GET = (
     options
@@ -11,8 +19,8 @@ export const GET = (
         method:'get',
         timeout: 10000,
         baseURL: API_BASE,
-        crossDomain:true,
-        withCredentials:true,
+        crossDomain: !isProduction,
+        withCredentials: !isProduction,
         headers:{
             'Content-type':'application/json',
             'Accept':'application/json'

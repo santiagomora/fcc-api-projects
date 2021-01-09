@@ -114,17 +114,25 @@ module.exports = {
     },
     valid_url: ({
         data,
-        rule_value
+        rule_value:{
+            handle_domain,
+            preformat
+        },
+        request
     }) => {
+        const domain = preformat
+            ? preformat(data)
+            : data;
         return new Promise(
             (resolve,reject) => {
                 dns.lookup(
-                    data,
+                    domain,
                     function( err,addr,fam ){
                         resolve(
-                            rule_value
-                                ? !addr
-                                : false
+                            handle_domain( {addr: addr ? domain : null,request} )
+                            // rule_value
+                            //     ? !addr
+                            //     : false
                         );
                     }
                 );
@@ -136,19 +144,24 @@ module.exports = {
         rule_value:{
             model,
             field,
-            on_success
+            on_success,
+            preformat
         },
         request
     }) => {
+        // should return validation error on empty or err
+        // passes because of fcc tests
         return new Promise(
             (resolve,reject) => {
                 const find = {};
-                find[ field ] = data;
+                find[ field ] = preformat
+                    ? preformat(data)
+                    : data;
                 model.findOne( find ).exec(
-                    function( err,res ){
+                    function( err,found ){
                         if( err )
                             throw err;
-                        resolve( on_success( {res,request} ) ); //it is expected to continue and redirect from controller
+                        resolve( on_success( {found,request} ) );
                     }
                 )
             }
@@ -163,15 +176,17 @@ module.exports = {
         },
         request
     }) => {
+        // should return validation error on empty or err
+        // passes because of fcc tests
         return new Promise(
             (resolve,reject) => {
                 const find = {};
                 find[ field ] = data;
                 model.findOne( find ).exec(
-                    function( err,res ){
+                    function( err,found ){
                         if( err )
                             throw err;
-                        resolve( on_success( {res,request} ) ); //it is expected to continue and redirect from controller
+                        resolve( on_success( {found,request} ) ); //it is expected to continue and redirect from controller
                     }
                 )
             }

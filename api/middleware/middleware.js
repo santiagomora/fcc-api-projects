@@ -1,8 +1,8 @@
 const express = require('express');
 
 const validation_middleware = [
-    require('./validation/date/entry'),
-    require('./validation/url/entry')
+    require('./validation/date/date'),
+    require('./validation/url/url')
 ];
 
 //assign middlewares on current uri

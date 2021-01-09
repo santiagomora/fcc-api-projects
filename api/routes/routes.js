@@ -20,7 +20,7 @@ const CORS_OPTIONS = config( 'cors.options' );
 
 router.use( body_parser.json() );
 
-router.use( cors( CORS_OPTIONS ) );  //some legacy browsers choke on 204
+router.use( cors() )//cors( CORS_OPTIONS ) );  //some legacy browsers choke on 204
 
 router.use( '/',express.static( `${config('path.build')}` ) );
 

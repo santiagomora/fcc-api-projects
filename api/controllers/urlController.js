@@ -38,7 +38,7 @@ async function handle_create_url( req,res ){
 async function handle_find_url( req,res ){
     const {url_id} = req.params;
     const {found_url} = req.body;
-    const response = ret_val
+    const ret_val = found_url
         ? {
             data: format_response_url( found_url ),
             status: 301

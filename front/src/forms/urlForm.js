@@ -17,6 +17,8 @@ const appStatus = {
     error:null
 };
 
+const defaulUrl = 'https://www.freecodecamp.org';
+
 function loadUrl( urlData,changeStatus ){
     POST({
         url:postUrl,
@@ -53,7 +55,7 @@ function loadUrl( urlData,changeStatus ){
 }
 
 function UrlForm(){
-    const [url,changeUrl] = useState(""),
+    const [url,changeUrl] = useState(defaulUrl),
         [status,changeStatus] = useState(appStatus),
         changeText = (e) => {
             e.preventDefault();

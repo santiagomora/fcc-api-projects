@@ -178,10 +178,13 @@ module.exports = {
     }) => {
         // should return validation error on empty or err
         // passes because of fcc tests
+        const data_val = data.match(/^\d+$/gi)
+            ? data
+            : -1;
         return new Promise(
             (resolve,reject) => {
                 const find = {};
-                find[ field ] = data;
+                find[ field ] = data_val;
                 model.findOne( find ).exec(
                     function( err,found ){
                         if( err )

@@ -14,8 +14,8 @@ module.exports = {
     options: process.env.NODE_ENV==='development'
         ? {
             optionsSuccessStatus: 200,
-            // credentials:true,
-            // origin:allowed_origin
+            credentials:true,
+            origin:allowed_origin
         } : {
             optionsSuccessStatus: 200,
             origin: '*'

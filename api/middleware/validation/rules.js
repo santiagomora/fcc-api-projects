@@ -120,16 +120,14 @@ module.exports = {
         },
         request
     }) => {
-        const domain = preformat
-            ? preformat(data)
-            : data;
+        const domain = preformat(data).split('/')||[];
         return new Promise(
             (resolve,reject) => {
                 dns.lookup(
-                    ( domain.split('/')||[] ).shift(),
+                    domain.shift(),
                     function( err,addr,fam ){
                         resolve(
-                            handle_domain( {addr: addr ? domain : null,request} )
+                            handle_domain( {addr: addr ? data : null,request} )
                             // rule_value
                             //     ? !addr
                             //     : false
@@ -154,9 +152,7 @@ module.exports = {
         return new Promise(
             (resolve,reject) => {
                 const find = {};
-                find[ field ] = preformat
-                    ? preformat(data)
-                    : data;
+                find[ field ] = data;
                 model.findOne( find ).exec(
                     function( err,found ){
                         if( err )

@@ -22,52 +22,16 @@ function has_errors( validation ){
     )
 }
 
-async function validate({
-    request,
-    response,
-    next,
-    validation,
-    method
-}){
-    const param_validation = await validate_form({
-        form_values:param_by_method[ method ]( request ),
-        form_validation:validation,
-        request
-    });
-    return has_errors( values( param_validation ) )
-        ? response.status(422).json( param_validation )
-        : next();
-}
-
-function check_valid_url( {excluded,originalUrl} ){
-    return excluded.reduce(
-        ( invalid_match,url_reg ) => ( originalUrl.match( url_reg ) || [] ).length>0
-            ? [ ...invalid_match,url_reg ]
-            : invalid_match,
-        []
-    );
-}
-
-function validation_middleware({
-    validation,
-    method,
-    excluded
-}){
+function validation_middleware( validation,method ){
     return async function( request,response,next ){
-        const {originalUrl} = request,
-            invalid_url = check_valid_url({
-                excluded,
-                originalUrl
-            });
-        return ( invalid_url.length>0 )
-            ? next()
-            : await validate({
-                request,
-                response,
-                next,
-                validation,
-                method
-            });
+        const param_validation = await validate_form({
+            form_values:param_by_method[ method ]( request ),
+            form_validation:validation,
+            request
+        });
+        return has_errors( values( param_validation ) )
+            ? response.status(422).json( param_validation )
+            : next();
     }
 }
 

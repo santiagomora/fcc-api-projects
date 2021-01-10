@@ -1,5 +1,5 @@
 module.exports = {
-    time: require('./timeController'),
+    date: require('./dateController'),
     header: require('./headerController'),
     url: require('./urlController')
 };

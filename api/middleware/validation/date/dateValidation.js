@@ -1,5 +1,3 @@
-const {Url} = require( config( 'path.models' ) );
-
 module.exports = {
     format:{
         required:true,

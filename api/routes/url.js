@@ -1,18 +1,22 @@
 const express = require('express');
 
-const {url} = require( config( 'path.controllers' ) );
+const { validation,url } = require( config( 'path.middleware' ) );
+
+const {handle_create_url,handle_find_url} = require( config( 'path.controllers' ) ).url;
+
+const { urlValidation,idValidation } = url;
 
 const router = express.Router();
 
-const {handle_create_url,handle_find_url} = url;
-
 router.post(
-    "/new$",
+    "/new",
+    validation( urlValidation,'post' ),
     handle_create_url
 );
 
 router.get(
-    "/:url_id$",
+    "/:url_id",
+    validation( idValidation,'get' ),
     handle_find_url
 );
 

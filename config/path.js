@@ -23,10 +23,6 @@ const dir_config = {
         dirname:'middleware',
         entry:'middleware'
     },
-    validation:{
-        dirname:'validation',
-        entry:'validation'
-    },
     helper:{
         dirname:'helper',
         entry:'helper'
@@ -41,16 +37,14 @@ const dir_config = {
     build:{
         dirname:'build',
     }
-}
+};
 
-// exports
 module.exports = {
     public:`${base}/${dir_config.public.dirname}`,
     config:`${base}/${dir_config.config.dirname}/${dir_config.config.entry}`,
     controllers:`${api}/${dir_config.controllers.dirname}/${dir_config.controllers.entry}`,
     routes:`${api}/${dir_config.routes.dirname}/${dir_config.routes.entry}`,
     middleware:`${api}/${dir_config.middleware.dirname}/${dir_config.middleware.entry}`,
-    validation:`${api}/${dir_config.middleware.dirname}/${dir_config.validation.dirname}/${dir_config.validation.entry}`,
     helper:`${api}/${dir_config.helper.dirname}/${dir_config.helper.entry}`,
     models:`${api}/${dir_config.models.dirname}/${dir_config.models.entry}`,
     build:`${base}/${dir_config.build.dirname}`

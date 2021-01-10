@@ -1,24 +1,24 @@
-const express = require('express');
+const express = require( 'express' );
 
-const cors = require('cors');
+const cors = require( 'cors' );
 
-const body_parser = require('body-parser');
+const body_parser = require( 'body-parser' );
 
-const time_routes = require('./date');
+const time_routes = require( './date' );
 
-const header_routes = require('./header');
+const header_routes = require( './header' );
 
-const url_routes = require('./url');
+const url_routes = require( './url' );
 
 const router = express.Router();
 
-const base_uri = config('api.base_uri');
+const base_uri = config( 'api.base_uri' );
 
 const CORS_OPTIONS = config( 'cors.options' );
 
 router.use( body_parser.urlencoded( { extended:false } ) );//body_parser.json() );
 
-router.use( CORS_OPTIONS ) );
+router.use( cors( CORS_OPTIONS ) );
 
 router.use( '/',express.static( `${config('path.build')}` ) );
 

@@ -7,7 +7,11 @@ const {find_one_url,create_url} = Url.methods;
 function build_response({res,ret_val}){
     const {status,data} = ret_val;
     return status === 301
-        ? res.status( status ).redirect( `http://${data.original_url}` )
+        ? res.status( status ).redirect(
+            data.original_url.match(/^(http|https):\/\//gi)
+                ? data.original_url
+                : `http://${data.original_url}`
+        )
         : res.status( status ).json( data );
 }
 

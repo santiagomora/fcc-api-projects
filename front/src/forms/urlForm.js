@@ -1,5 +1,3 @@
-import dns from 'dns';
-
 import {useState} from 'react';
 
 import {POST,API_BASE} from './axios';

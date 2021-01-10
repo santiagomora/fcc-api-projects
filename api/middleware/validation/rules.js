@@ -126,7 +126,7 @@ module.exports = {
         return new Promise(
             (resolve,reject) => {
                 dns.lookup(
-                    domain,
+                    ( domain.split('/')||[] ).shift(),
                     function( err,addr,fam ){
                         resolve(
                             handle_domain( {addr: addr ? domain : null,request} )

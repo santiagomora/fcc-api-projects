@@ -15,7 +15,7 @@ function preformat_url( url ){
 }
 
 module.exports = {
-    url_input:{
+    url:{
         valid_url:{
             handle_domain:valid_url,
             preformat:preformat_url

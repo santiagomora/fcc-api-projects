@@ -8,7 +8,7 @@ const postUrl = '/shorturl/new';
 
 function encodeFormData({url_input}){
     const params = new URLSearchParams();
-    params.append( 'url_input', url_input );
+    params.append( 'url', url_input );
     return params;
 }
 

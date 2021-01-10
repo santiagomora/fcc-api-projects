@@ -16,7 +16,7 @@ async function create_valid_url({req}){
     const new_url = found_url
         ? found_url
         : await create_url({url_name:valid_url});
-    new_url.url_name = req.body.url_input;
+    new_url.url_name = req.body.url;
     return format_response_url( new_url );
 }
 

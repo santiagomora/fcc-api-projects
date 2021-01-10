@@ -28,7 +28,7 @@ async function handle_create_url( req,res ){
             status:200
         } : {
             data:{
-                error:"invalid URL"
+                error:"invalid url"
             },
             status:422
         }

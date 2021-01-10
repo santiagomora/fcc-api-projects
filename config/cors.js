@@ -1,6 +1,7 @@
 const whitelist = [
     'http://127.0.0.1:3001',
-    'http://localhost:3001'
+    'http://localhost:3001',
+    'https://www.freecodecamp.org'
 ];
 
 function allowed_origin( origin,callback ){
@@ -11,13 +12,9 @@ function allowed_origin( origin,callback ){
 }
 
 module.exports = {
-    options: process.env.NODE_ENV==='development'
-        ? {
-            optionsSuccessStatus: 200,
-            credentials:true,
-            origin:allowed_origin
-        } : {
-            optionsSuccessStatus: 200,
-            origin: '*'
-        }
+    options:{
+        optionsSuccessStatus: 200,
+        credentials:true,
+        origin:allowed_origin
+    }
 }

@@ -18,7 +18,7 @@ const CORS_OPTIONS = config( 'cors.options' );
 
 router.use( body_parser.urlencoded( { extended:false } ) );//body_parser.json() );
 
-router.use( cors( ) );// CORS_OPTIONS ) );
+router.use( CORS_OPTIONS ) );
 
 router.use( '/',express.static( `${config('path.build')}` ) );
 

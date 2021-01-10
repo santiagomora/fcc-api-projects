@@ -11,6 +11,7 @@ module.exports = {
     options:{
         optionsSuccessStatus: 200,
         credentials:true,
-        origin:allowed_origin
+        origin:allowed_origin,
+        methods:['GET','POST']
     }
 }

@@ -1,8 +1,4 @@
-const whitelist = [
-    'http://127.0.0.1:3001',
-    'http://localhost:3001',
-    'https://www.freecodecamp.org'
-];
+const whitelist = process.env.CORS_WHITELIST.split(',');
 
 function allowed_origin( origin,callback ){
     const args = ( whitelist.indexOf( origin ) !== -1 )

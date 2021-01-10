@@ -30,7 +30,7 @@ async function handle_create_url( req,res ){
             data:{
                 error:"invalid url"
             },
-            status:422
+            status:200
         }
     return build_response({res,ret_val});
 }
